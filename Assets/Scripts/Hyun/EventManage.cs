@@ -7,7 +7,7 @@ public class EventManage : MonoBehaviour
 {
     public GameObject onRunning_Ui;
     public GameObject onGoing_Ui;
-
+    public GameObject Direct;
     public List<GameObject> banks;
     public List<GameObject> portals;
 
@@ -36,6 +36,11 @@ public class EventManage : MonoBehaviour
             onRunning_Ui.SetActive(false);
 
             
+        }
+
+        if (GameManager.Instance.gameState == GameState.Onrunning)
+        {
+            Direct.SetActive(true);
         }
     }
 }

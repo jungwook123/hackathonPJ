@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public enum GameState
@@ -12,6 +13,7 @@ public class GameManager : Singleton<GameManager>
     public int playerMoney =100;
     public GameState gameState = GameState.Ongoing;
     public Vector2 BankPos;
+    public TMP_Text MoneyText;
     public override void Awake()
     {
         base.Awake();
@@ -30,6 +32,11 @@ public class GameManager : Singleton<GameManager>
     public void EndRaid()
     {
         
+    }
+
+    private void FixedUpdate()
+    {
+        MoneyText.text = playerMoney.ToString()+"$";
     }
     
     

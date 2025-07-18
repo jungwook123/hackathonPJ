@@ -6,6 +6,6 @@ public class Portal : Object
     {
         base.Interact();
         if(GameManager.Instance.gameState != GameState.Onrunning) return;
-        SceneTransitionLight.Instance.TransitionToScene("Home");
+        SceneTransitionLight.Instance.TransitionToScene("Home 1");
     }
 }

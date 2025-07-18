@@ -10,7 +10,6 @@ public class PlayerUi : MonoBehaviour
     void Update()
     {
         UpdateHearts(GameManager.Instance.playerHeart);
-        moneyText.text = "$" + GameManager.Instance.playerMoney;
         //ammoText.text = $"{playerGun.currentAmmo : ∞}";
     }
 
