@@ -7,7 +7,7 @@ public class PlayerMove : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
-        if(Input.Getkey)
+        //if(Input.Getkey)
     }
 
     private void Move()
