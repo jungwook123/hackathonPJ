@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class TestMonster : MonoBehaviour
 {
@@ -7,61 +9,31 @@ public class TestMonster : MonoBehaviour
     public float speed = 5f;
     public float wanderRadius = 10f;
     public float wanderInterval = 3f;
-    public float detectionRange = 16f;
-    
-    public Animator animator;
 
     private GameObject target;
     private float wanderTimer;
-
-    private Vector3 lastKnownPlayerPos;
-    private bool chasingPlayer = false;
-    private bool goingToLastKnown = false;
-
+    private Animator animator;
     void Start()
     {
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.speed = speed;
-
+        animator = GetComponent<Animator>();
         target = GameObject.Find("Player");
         wanderTimer = wanderInterval;
     }
 
     void Update()
     {
-        if (GameManager.Instance.gameState == GameState.Ongoing)
+        switch (GameManager.Instance.gameState)
         {
-           Wander();
-        }
-        else if (GameManager.Instance.gameState == GameState.Onrunning)
-        {
-            float dist = Vector3.Distance(transform.position, target.transform.position);
-
-            if (dist <= detectionRange)
-            {
-                chasingPlayer = true;
-                goingToLastKnown = false;
-                lastKnownPlayerPos = target.transform.position;
-                agent.SetDestination(lastKnownPlayerPos);
-            }
-            else if (chasingPlayer)
-            {
-                chasingPlayer = false;
-                goingToLastKnown = true;
-                agent.SetDestination(lastKnownPlayerPos);
-            }
-            else if (goingToLastKnown)
-            {
-                if (agent.remainingDistance <= 0.5f)
-                {
-                    goingToLastKnown = false;
-                }
-            }
-            else
-            {
+            case GameState.Ongoing:
                 Wander();
-            }
+                break;
+
+            case GameState.Onrunning:
+                ChasePlayer();
+                break;
         }
         UpdateAnimatorDirection();
     }
@@ -83,7 +55,6 @@ public class TestMonster : MonoBehaviour
         }
     }
 
-
     void Wander()
     {
         wanderTimer += Time.deltaTime;
@@ -92,18 +63,27 @@ public class TestMonster : MonoBehaviour
         {
             float x = Random.Range(-10f, 10f);
             float y = Random.Range(-10f, 10f);
-            Vector3 randomDestination = transform.position +new Vector3(x, y, 0f);
+            Vector3 randomDestination = new Vector3(x, y, 0f)+ transform.position; // Z는 0으로 고정 (2D 환경 가정)
 
             agent.SetDestination(randomDestination);
             wanderTimer = 0f;
         }
     }
 
+
+    
+
     void ChasePlayer()
     {
         if (target != null)
-        {
             agent.SetDestination(target.transform.position);
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.transform.TryGetComponent<IHitable>(out IHitable hitable))
+        {
+            hitable.Hit();
         }
     }
 }

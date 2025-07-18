@@ -126,11 +126,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 6111416599501174248}
-  speed: 5
-  wanderRadius: 10
+  speed: 15
+  wanderRadius: 20
   wanderInterval: 3
-  detectionRange: 8
-  animator: {fileID: -3811440473817103714}
 --- !u!95 &-3811440473817103714
 Animator:
   serializedVersion: 7

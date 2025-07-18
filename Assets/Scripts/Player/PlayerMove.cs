@@ -27,6 +27,7 @@ public class PlayerMove : MonoBehaviour
             
         }
     }
+    
 
     private void MoveAnim()
     {
