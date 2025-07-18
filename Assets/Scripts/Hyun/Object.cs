@@ -13,11 +13,13 @@ public abstract class Object : MonoBehaviour, Iinteractable
 
     public virtual void Interact()
     {
+        if (UI == null) return;
         UI.SetActive(true);
     }
 
     public void HideUI()
     {
+        if (UI == null) return;
         UI.SetActive(false);
     }
 
