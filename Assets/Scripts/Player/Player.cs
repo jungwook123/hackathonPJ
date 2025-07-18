@@ -6,7 +6,7 @@ public class Player : MonoBehaviour, IHitable
     [SerializeField] private int health = 3;
     private Collider2D playerCollider;
     private SpriteRenderer spriteRenderer;
-
+    private bool isInvincible = false;
     private void Start()
     {
         playerCollider = GetComponent<Collider2D>();
@@ -14,19 +14,21 @@ public class Player : MonoBehaviour, IHitable
     }
     public void Hit()
     {
-        health--;
+        if (isInvincible) return;
+
         StartCoroutine(anfl());
+        GameManager.Instance.playerMoney -= 10;
+
         if (health <= 0)
         {
-            
+            // 사망 처리 로직
         }
-
-        GameManager.Instance.playerMoney -= 10;
     }
 
     IEnumerator anfl()
     {
-        playerCollider.enabled = false;
+        isInvincible = true;
+        health--;
 
         Color originalColor = spriteRenderer.color;
         Color blackColor = Color.black;
@@ -43,7 +45,6 @@ public class Player : MonoBehaviour, IHitable
         }
 
         spriteRenderer.color = originalColor;
-        playerCollider.enabled = true;
+        isInvincible = false;
     }
-    
 }
