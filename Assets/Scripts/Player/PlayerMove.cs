@@ -2,7 +2,17 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 10f;
+    public float moveSpeed = 10;
+    private Rigidbody2D rb;
+    private Animator myAnim;
+    private Vector2Int dir;
+    public Vector2Int lastDir;
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        myAnim = GetComponent<Animator>();
+        
+    }
 
     private void FixedUpdate()
     {
@@ -10,11 +20,24 @@ public class PlayerMove : MonoBehaviour
         //if(Input.Getkey)
     }
 
+    private void MoveAnim()
+    {
+         myAnim.SetFloat("moveX", rb.linearVelocity.x);
+        myAnim.SetFloat("moveY",rb.linearVelocity.y);
+        dir.x = Mathf.RoundToInt(Input.GetAxisRaw("Horizontal"));
+        dir.y = Mathf.RoundToInt(Input.GetAxisRaw("Vertical"));
+        if(dir.x == 1 | dir.x == -1 || dir.y == 1 || dir.y== -1)
+        {
+            lastDir = dir;
+            myAnim.SetFloat("LastX", dir.x);
+            myAnim.SetFloat("LastY", dir.y);
+            
+        }
+    }
     private void Move()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 movement = new Vector3(horizontal, vertical,0).normalized;
-        transform.position += movement * moveSpeed * Time.deltaTime;
+        rb.linearVelocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * moveSpeed;
+        MoveAnim();
+        
     }
 }
