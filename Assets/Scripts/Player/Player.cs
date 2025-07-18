@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour, IHitable
 {
@@ -22,7 +23,7 @@ public class Player : MonoBehaviour, IHitable
 
         if (health <= 0)
         {
-            // 사망 처리 로직
+            SceneManager.LoadScene("Dead");
         }
     }
 
