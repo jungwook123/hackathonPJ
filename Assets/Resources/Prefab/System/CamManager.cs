@@ -34,6 +34,8 @@ public class CamManager : MonoBehaviour
         dutch_d = cam.Lens.Dutch;
     }
 
+
+   
     void ClearRoutine(ref IEnumerator routine)
     {
         if (routine != null)
