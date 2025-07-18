@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static Unity.VisualScripting.Member;
 
-public class SoundManager : SingletonPun<SoundManager>
+public class SoundManager : Singleton<SoundManager>
 {
     // ȿ������ BGM�� ������ ��ųʸ� (�̸����� ����)
     private Dictionary<string, AudioClip> soundEffects;
