@@ -7,10 +7,15 @@ public class TestMonster : MonoBehaviour
     public float speed = 5f;
     public float wanderRadius = 10f;
     public float wanderInterval = 3f;
+    public float detectionRange = 16f;
 
     private GameObject target;
     private float wanderTimer;
-    
+
+    private Vector3 lastKnownPlayerPos;
+    private bool chasingPlayer = false;
+    private bool goingToLastKnown = false;
+
     void Start()
     {
         agent.updateRotation = false;
@@ -23,19 +28,38 @@ public class TestMonster : MonoBehaviour
 
     void Update()
     {
-        switch (GameManager.Instance.gameState)
+        if (GameManager.Instance.gameState == GameState.Ongoing)
         {
-            case GameState.Ongoing:
+           Wander();
+        }
+        else if (GameManager.Instance.gameState == GameState.Onrunning)
+        {
+            float dist = Vector3.Distance(transform.position, target.transform.position);
+
+            if (dist <= detectionRange)
+            {
+                chasingPlayer = true;
+                goingToLastKnown = false;
+                lastKnownPlayerPos = target.transform.position;
+                agent.SetDestination(lastKnownPlayerPos);
+            }
+            else if (chasingPlayer)
+            {
+                chasingPlayer = false;
+                goingToLastKnown = true;
+                agent.SetDestination(lastKnownPlayerPos);
+            }
+            else if (goingToLastKnown)
+            {
+                if (agent.remainingDistance <= 0.5f)
+                {
+                    goingToLastKnown = false;
+                }
+            }
+            else
+            {
                 Wander();
-                break;
-
-            case GameState.InBank:
-                Idle();
-                break;
-
-            case GameState.Onrunning:
-                ChasePlayer();
-                break;
+            }
         }
     }
 
@@ -45,21 +69,20 @@ public class TestMonster : MonoBehaviour
 
         if (wanderTimer >= wanderInterval || agent.remainingDistance <= 0.5f)
         {
-            Vector2 randomCircle = Random.insideUnitCircle * wanderRadius;
-            Vector3 randomDestination = new Vector3(transform.position.x + randomCircle.x, transform.position.y + randomCircle.y, 0);
+            float x = Random.Range(-10f, 10f);
+            float y = Random.Range(-10f, 10f);
+            Vector3 randomDestination = transform.position +new Vector3(x, y, 0f);
+
             agent.SetDestination(randomDestination);
             wanderTimer = 0f;
         }
     }
 
-    void Idle()
-    {
-        agent.SetDestination(transform.position); // 현재 위치를 목적지로 해서 멈추게 함
-    }
-
     void ChasePlayer()
     {
         if (target != null)
+        {
             agent.SetDestination(target.transform.position);
+        }
     }
 }

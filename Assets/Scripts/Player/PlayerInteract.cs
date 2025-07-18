@@ -35,9 +35,10 @@ public class PlayerInteract : MonoBehaviour
         var interactable = other.GetComponent<Iinteractable>();
         if (interactable != null && interactable == currentInteractable)
         {
-            interactable.HideUI();
             currentInteractable = null;
             promptUI.SetActive(false);
+            interactable.HideUI();
+            
         }
     }
 }
