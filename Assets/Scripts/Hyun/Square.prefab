@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1070079840377487347}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,6 +129,15 @@ MonoBehaviour:
   speed: 15
   wanderRadius: 20
   wanderInterval: 3
+  health: 5
+  detectionRange: 10
+  stopDistance: 3
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!95 &-3811440473817103714
 Animator:
   serializedVersion: 7

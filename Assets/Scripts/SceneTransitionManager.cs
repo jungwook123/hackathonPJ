@@ -59,7 +59,7 @@ public class SceneTransitionLight : MonoBehaviour
         yield return StartCoroutine(FadeOutLight());
 
         yield return new WaitForSeconds(0.2f); // 부드러운 전환을 위한 딜레이
-
+        if (sceneName == "Bank") sceneLight.enabled = false;
         SceneManager.LoadScene(sceneName);
     }
 

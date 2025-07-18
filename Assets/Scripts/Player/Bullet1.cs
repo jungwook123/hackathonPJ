@@ -21,14 +21,14 @@ public class Bullet1 : MonoBehaviour
         }
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("Àû ÀûÁß!");
-            Destroy(gameObject); // ÃÑ¾Ë »èÁ¦
+            other.GetComponent<IHitable>().Hit();
+            Destroy(gameObject); // ï¿½Ñ¾ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
-        if (other.CompareTag("Safe"))  // ±Ý°íÀÇ ÅÂ±×°¡ "Safe"¶ó¸é
+        if (other.CompareTag("Safe"))  // ï¿½Ý°ï¿½ï¿½ï¿½ ï¿½Â±×°ï¿½ "Safe"ï¿½ï¿½ï¿½
         {
             Safe safe = other.GetComponent<Safe>();
             safe.OnDamaged();
-            Destroy(gameObject); // ÃÑ¾Ë Á¦°Å
+            Destroy(gameObject); // ï¿½Ñ¾ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
     }
 }
