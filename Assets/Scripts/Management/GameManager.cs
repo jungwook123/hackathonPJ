@@ -3,6 +3,7 @@ using UnityEngine;
 public enum GameState
 {
     Ongoing,// 은행가는중
+    OnBank,// 은행한 
     Onrunning // 도망치는중
 }
 public class GameManager : Singleton<GameManager>
