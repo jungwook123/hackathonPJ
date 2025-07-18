@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed = 10f;
     public float lifetime = 2f;
 
     void Start()
@@ -12,15 +11,24 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector3.right * speed * Time.deltaTime); // 오른쪽이 총구방향
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+        {
+            Destroy(gameObject);
+        }
         if (other.CompareTag("Enemy"))
         {
             Debug.Log("적 적중!");
             Destroy(gameObject); // 총알 삭제
+        }
+        if (other.CompareTag("Safe"))  // 금고의 태그가 "Safe"라면
+        {
+            Safe safe = other.GetComponent<Safe>();
+            safe.OnDamaged();
+            Destroy(gameObject); // 총알 제거
         }
     }
 }
