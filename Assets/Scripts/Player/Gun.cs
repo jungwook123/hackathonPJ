@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class Gun : MonoBehaviour
 {
@@ -8,10 +9,10 @@ public class Gun : MonoBehaviour
     public Transform firePoint;       // 총구 위치
     public float bulletSpeed = 10f;
     public int maxAmmo = 13;
-    private int currentAmmo;
+    public int currentAmmo;
     private float reloadTime = 1.0f;
     private bool isReloading = false;
-
+    public TMP_Text ammoText;
     [Header("기타")]
     private Camera mainCam;
     public Transform player; // ✅ 플레이어 트랜스폼
@@ -20,9 +21,12 @@ public class Gun : MonoBehaviour
 
     void Start()
     {
+        
         mainCam = Camera.main;
         currentAmmo = maxAmmo;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        ammoText.text = currentAmmo.ToString();
+        
     }
 
     void Update()
@@ -30,7 +34,11 @@ public class Gun : MonoBehaviour
         RotateGunToMouse();
         PositionGunAroundPlayer();
 
-        if (isReloading) return;
+        if (isReloading)
+        {
+            ammoText.text = "reloading...";
+            return;
+        }
 
         RotateGunToMouse();
 
@@ -77,8 +85,9 @@ public class Gun : MonoBehaviour
         {
             rb.linearVelocity = -bullet.transform.up * bulletSpeed;
         }
-
+        
         currentAmmo--;
+        ammoText.text = currentAmmo.ToString();
         Debug.Log("발사! 남은 탄약: " + currentAmmo);
     }
 
@@ -96,8 +105,9 @@ public class Gun : MonoBehaviour
         Debug.Log("재장전 중...");
 
         yield return new WaitForSeconds(reloadTime);
-
+    
         currentAmmo = maxAmmo;
+        ammoText.text = currentAmmo.ToString();
         isReloading = false;
         Debug.Log("재장전 완료! 탄약: " + currentAmmo);
     }
