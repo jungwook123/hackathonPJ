@@ -17,6 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Bank.unity
     guid: 12839880774e9bf45a369a90451c7c7f
+  - enabled: 1
+    path: Assets/Scenes/Home 1.unity
+    guid: 7d29753aaeb914c3c8576451278ed55d
+  - enabled: 1
+    path: Assets/Scenes/Dead.unity
+    guid: ae24c12ffae24074488f5450f34d43cf
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
