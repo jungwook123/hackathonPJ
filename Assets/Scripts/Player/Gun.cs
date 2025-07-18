@@ -8,7 +8,7 @@ public class Gun : MonoBehaviour
     public Transform firePoint;       // 총구 위치
     public float bulletSpeed = 10f;
     public int maxAmmo = 13;
-    private int currentAmmo;
+    public int currentAmmo;
     private float reloadTime = 1.0f;
     private bool isReloading = false;
 
