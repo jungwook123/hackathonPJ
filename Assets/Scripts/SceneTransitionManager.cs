@@ -14,6 +14,7 @@ public class SceneTransitionLight : MonoBehaviour
 
     void Awake()
     {
+        Screen.SetResolution(1920,1080,true);
         // 싱글톤 생성
         if (Instance != null && Instance != this)
         {
