@@ -37,6 +37,7 @@ public class Gun : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && currentAmmo > 0)
         {
             Fire();
+            CamManager.instance.Shake(1,0.2f);
         }
 
         if (Input.GetKeyDown(KeyCode.R)) // R키로 재장전
