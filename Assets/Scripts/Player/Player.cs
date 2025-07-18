@@ -15,7 +15,8 @@ public class Player : MonoBehaviour, IHitable
     public void Hit()
     {
         if (isInvincible) return;
-
+        GameManager.Instance.playerHeart--;
+        GameManager.Instance.DiscardHearts();
         StartCoroutine(anfl());
         GameManager.Instance.playerMoney -= 10;
 

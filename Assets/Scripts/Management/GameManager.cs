@@ -1,6 +1,9 @@
+using NUnit.Framework;
 using TMPro;
 using UnityEngine;
-
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 public enum GameState
 {
     Ongoing,// 은행가는중
@@ -9,6 +12,7 @@ public enum GameState
 }
 public class GameManager : Singleton<GameManager>
 {
+    public GameObject[] heartImages;
     public int playerHeart = 3;
     public int playerMoney =100;
     public GameState gameState = GameState.Ongoing;
@@ -17,6 +21,21 @@ public class GameManager : Singleton<GameManager>
     public override void Awake()
     {
         base.Awake();
+    }
+    private void Start()
+    {
+        for (int i = 0; i < heartImages.Length; i++)
+        {
+            heartImages[i].SetActive(i < playerHeart);
+        }
+    }
+
+    public void DiscardHearts()
+    {
+        for (int i = 0; i < heartImages.Length; i++)
+        {
+            heartImages[i].SetActive(i < playerHeart);
+        }
     }
 
     public void AddMoney(int amount)
@@ -36,6 +55,7 @@ public class GameManager : Singleton<GameManager>
 
     private void FixedUpdate()
     {
+
         MoneyText.text = playerMoney.ToString()+"$";
     }
     
