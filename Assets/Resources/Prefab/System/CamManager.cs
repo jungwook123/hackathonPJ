@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CamManager : MonoBehaviour
 {
-    public static CamManager main;
+    public static CamManager instance;
     public CinemachineCamera cam;
     public CinemachineBasicMultiChannelPerlin noise;
     public CinemachineCameraOffset camOffset;
@@ -28,7 +28,7 @@ public class CamManager : MonoBehaviour
         camOffset = GetComponent<CinemachineCameraOffset>();
         noise = GetComponent<CinemachineBasicMultiChannelPerlin>();
 
-        main = this;
+        instance = this;
 
         orSize_d = cam.Lens.OrthographicSize;
         dutch_d = cam.Lens.Dutch;
