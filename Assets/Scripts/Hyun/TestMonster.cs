@@ -8,6 +8,8 @@ public class TestMonster : MonoBehaviour
     public float wanderRadius = 10f;
     public float wanderInterval = 3f;
     public float detectionRange = 16f;
+    
+    public Animator animator;
 
     private GameObject target;
     private float wanderTimer;
@@ -61,7 +63,26 @@ public class TestMonster : MonoBehaviour
                 Wander();
             }
         }
+        UpdateAnimatorDirection();
     }
+    void UpdateAnimatorDirection()
+    {
+        Vector3 velocity = agent.velocity;
+
+        if (velocity.sqrMagnitude > 0.01f)
+        {
+            Vector2 moveDir = velocity.normalized;
+            animator.SetFloat("MoveX", moveDir.x);
+            animator.SetFloat("MoveY", moveDir.y);
+        }
+        else
+        {
+            // 멈췄을 때 값 유지할지 초기화할지는 선택사항
+            animator.SetFloat("MoveX", 0f);
+            animator.SetFloat("MoveY", 0f);
+        }
+    }
+
 
     void Wander()
     {
