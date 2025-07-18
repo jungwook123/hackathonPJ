@@ -8,7 +8,8 @@ public enum GameState
 }
 public class GameManager : Singleton<GameManager>
 {
-    public int playerMoney =500;
+    public int playerHeart = 3;
+    public int playerMoney =100;
     public GameState gameState = GameState.Ongoing;
     public Vector2 BankPos;
     public override void Awake()
