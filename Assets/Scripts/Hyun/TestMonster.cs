@@ -34,9 +34,9 @@ public class TestMonster : MonoBehaviour
             case GameState.Onrunning:
                 ChasePlayer();
                 break;
-            case GameState.OnBank:
-                //함수ㅡ 추가하고
-                break;
+            // case GameState.OnBank:
+            //     //함수ㅡ 추가하고
+            //     break;
         }
         UpdateAnimatorDirection();
     }
